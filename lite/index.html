@@ -213,13 +213,6 @@ input, select { font-family: var(--font); }
 .sec-header .sec-link:hover { text-decoration: underline; }
 
 
-/* ─── CATEGORY PILLS (hero sub-section) ─── */
-.cat-pills { display: flex; gap: 8px; padding: 16px 24px 0; max-width: 1248px; margin: 0 auto; flex-wrap: wrap; }
-.cat-pill { display: flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: var(--r-full); border: 1.5px solid var(--g200); background: #fff; font-size: 13px; font-weight: 600; color: var(--g600); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-.cat-pill .cp-count { font-size: 11px; color: var(--g400); font-weight: 400; }
-.cat-pill:hover { border-color: var(--ss-blue); color: var(--ss-blue); background: var(--ss-blue-bg); }
-.cat-pill.active { border-color: var(--ss-blue); color: #fff; background: var(--ss-blue); }
-.cat-pill.active .cp-count { color: rgba(255,255,255,0.7); }
 
 /* ─── MAIN CATALOGUE LAYOUT ─── */
 .catalogue { display: grid; grid-template-columns: 256px 1fr; gap: 0; max-width: 1248px; margin: 0 auto; padding: 0 24px 48px; min-height: 600px; }
@@ -288,14 +281,14 @@ input, select { font-family: var(--font); }
 .rcard .rc-act.compared { background: var(--green); color: #fff; }
 .rcard .rc-body { padding: 12px 14px 14px; }
 .rcard .rc-value { font-size: 22px; font-weight: 800; color: var(--ss-blue); letter-spacing: -0.5px; }
-.rcard .rc-name { font-size: 12px; color: var(--g600); margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px; }
-.rcard .rc-meta { display: flex; align-items: center; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.rcard .rc-name { font-size: 14px; color: var(--g800); margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; min-height: 33px; }
+.rcard .rc-meta { display: block; margin-top: 8px; }
 .rcard .rc-brand { font-size: 10px; font-weight: 700; color: var(--g400); text-transform: uppercase; letter-spacing: 0.5px; }
 .rcard .rc-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--g300); }
 .rcard .rc-effort { font-size: 10px; padding: 2px 8px; border-radius: var(--r-full); font-weight: 600; }
 .rcard .rc-ful-icon { font-size: 10px; margin-left: auto; padding: 2px 7px; border-radius: var(--r-full); background: var(--g100); color: var(--g500); font-weight: 600; }
-.rcard .rc-pathway { font-size: 10px; color: var(--ss-blue); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 160px; }
-.rcard .rc-pw-more { font-size: 9px; color: var(--g400); font-weight: 600; margin-left: 2px; }
+.rcard .rc-pw-line { font-size: 11px; color: var(--ss-blue); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.6; }
+.rcard .rc-pw-more { font-size: 10px; color: var(--g400); font-weight: 600; margin-top: 2px; }
 
 /* effort colors */
 .eff-vl { background: var(--green-bg); color: var(--green); }
@@ -455,9 +448,6 @@ input, select { font-family: var(--font); }
   /* Sections */
   .sec-header { padding: 20px 16px 10px; }
   .sec-header h2 { font-size: 16px; }
-  .cat-pills { padding: 12px 16px 0; gap: 6px; overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
-  .cat-pills::-webkit-scrollbar { height: 0; }
-  .cat-pill { flex-shrink: 0; padding: 6px 14px; font-size: 12px; }
 
   /* Cards */
   .card-grid { grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 10px; }
@@ -652,7 +642,6 @@ input, select { font-family: var(--font); }
   .rcard .rc-body { padding: 8px 10px 10px; }
   .rcard .rc-value { font-size: 16px; }
   .rcard .rc-name { font-size: 10px; min-height: 24px; -webkit-line-clamp: 1; }
-  .rcard .rc-meta { gap: 4px; }
   .rcard .rc-brand { font-size: 9px; }
   .rcard .rc-effort { font-size: 9px; padding: 2px 6px; }
   .rcard .rc-ful-icon { display: none; }
@@ -821,9 +810,6 @@ function checkPw(){
     </div>
   </div>
 
-  <!-- Category pills -->
-  <div class="cat-pills" id="cat-pills-s1"></div>
-
   <!-- Full catalogue -->
   <div class="sec-header">
     <h2>All Rewards</h2>
@@ -940,7 +926,6 @@ let st = {
   bookmarks: new Set(),
   pageSize: 24,
   page: 1,
-  activeCatPill: 'All',
   s2Cat: null,
   s2Sub: null,
 };
@@ -1164,13 +1149,16 @@ function getPathways(rewardId) {
 function getCardPathwayHtml(itemId) {
   const pws = getPathways(itemId);
   if (!pws.length) return '';
-  const best = pws.find(p => p.bestValue) || pws[0];
-  const moreBanks = pws.length > 1 ? ` <span class="rc-pw-more">+${pws.length - 1} more bank${pws.length > 2 ? 's' : ''}</span>` : '';
-  if (best.type === 'base') {
-    return `<span class="rc-pathway" title="Via ${best.bank}">💳 via ${best.bank} (base gift)${moreBanks}</span>`;
-  } else {
-    return `<span class="rc-pathway" title="Via ${best.bank}">💳 via ${best.bank} +$${best.topUp} top-up${moreBanks}</span>`;
+  const show = pws.slice(0, 2);
+  const rest = pws.length - show.length;
+  let html = show.map(p => {
+    const detail = p.type === 'base' ? '(free gift)' : `+$${p.topUp} top-up`;
+    return `<div class="rc-pw-line" title="Via ${p.bank}">💳 via ${p.bank} ${detail}</div>`;
+  }).join('');
+  if (rest > 0) {
+    html += `<div class="rc-pw-more">+${rest} more pathway${rest > 1 ? 's' : ''}</div>`;
   }
+  return html;
 }
 
 // ═══ POPULARITY BADGES ═══
@@ -1275,15 +1263,6 @@ function renderCard(item, mode) {
 
 // ═══ SCREEN 1 INIT ═══
 function initS1() {
-  // Category pills
-  const cats = ['All', ...new Set(R.map(r=>r.category))];
-  const catCounts = {};
-  cats.forEach(c => catCounts[c] = c==='All' ? R.length : R.filter(r=>r.category===c).length);
-  document.getElementById('cat-pills-s1').innerHTML = cats.map(c =>
-    `<div class="cat-pill ${c==='All'?'active':''}" onclick="setCatPill('${c}',this)">
-      ${c} <span class="cp-count">${catCounts[c]}</span>
-    </div>`
-  ).join('');
   // Sidebar + grid
   buildSidebar();
   renderGrid();
@@ -1332,7 +1311,6 @@ function buildSidebar() {
 
 function getFiltered(exclude, group) {
   return R.filter(r => {
-    if (st.activeCatPill !== 'All' && r.category !== st.activeCatPill) return false;
     if (group !== 'cat' && st.filters.cat.length && !st.filters.cat.includes(r.category)) return false;
     if (r.perceivedValue < st.priceMin || r.perceivedValue > st.priceMax) return false;
     if (group !== 'ful' && st.filters.ful.length && !st.filters.ful.includes(r.fulfilment)) return false;
@@ -1392,7 +1370,6 @@ function clearPrice() { st.priceMin = 0; st.priceMax = 99999; buildSidebar(); re
 function removeFilter(g, v) { st.filters[g] = st.filters[g].filter(x => x !== v); buildSidebar(); renderGrid(); }
 function clearFilter(g) { st.filters[g] = []; buildSidebar(); renderGrid(); }
 function clearAll() { Object.keys(st.filters).forEach(g => st.filters[g]=[]); st.priceMin=0; st.priceMax=99999; st.search=''; document.getElementById('hero-search').value=''; buildSidebar(); renderGrid(); updateMobileFilterCount(); }
-function setCatPill(c, el) { st.activeCatPill = c; document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active')); el.classList.add('active'); st.page=1; buildSidebar(); renderGrid(); }
 function setView(v, btn) { st.view = v; document.querySelectorAll('#s1 .view-btns button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderGrid(); }
 function loadMore() { st.page++; renderGrid(); }
 function onHeroSearch() { st.search = document.getElementById('hero-search').value.toLowerCase().trim(); st.page = 1; buildSidebar(); renderGrid(); }
