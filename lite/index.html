@@ -557,18 +557,17 @@ input, select { font-family: var(--font); }
   font-size: 18px; font-weight: 800; color: var(--ss-blue);
   border-top: 1px solid var(--ss-blue-100); padding-top: 8px; margin-top: 8px;
 }
-.pw-cta-section { text-align: center; }
-.pw-cta-main {
-  width: 100%; padding: 14px; border-radius: var(--r-md);
+.pw-card-cta {
+  display: block; width: 100%; padding: 10px; border-radius: var(--r-md);
   background: var(--ss-blue); color: #fff; border: none;
-  font-size: 15px; font-weight: 700; cursor: pointer; margin-bottom: 8px;
+  font-size: 13px; font-weight: 700; cursor: pointer; margin-top: 10px; text-align: center;
 }
-.pw-cta-main:hover { background: var(--ss-blue-hover); }
-.pw-cta-alt {
-  font-size: 12px; color: var(--g500);
+.pw-card-cta:hover { background: var(--ss-blue-hover); }
+.pw-all-pathways {
+  text-align: center; font-size: 12px; color: var(--g500); margin-top: 12px;
 }
-.pw-cta-alt a { color: var(--ss-blue); font-weight: 600; cursor: pointer; }
-.pw-cta-alt a:hover { text-decoration: underline; }
+.pw-all-pathways a { color: var(--ss-blue); font-weight: 600; cursor: pointer; }
+.pw-all-pathways a:hover { text-decoration: underline; }
 
 /* ═══ INTERSTITIAL ═══ */
 .interstitial-overlay {
@@ -1461,8 +1460,11 @@ function openPathwayDetail(rewardId, pathwayIdx) {
   if (!r || !pw) return;
 
   // Build card list HTML
-  let cardsHtml = pw.cards.map(card => `
-    <div class="pw-step" style="cursor:pointer;" onclick="showInterstitial('${card.id}',${rewardId},'${pw.bank}')">
+  let cardsHtml = pw.cards.map(card => {
+    const logo = BANK_LOGOS[card.bank];
+    const logoImg = logo ? `<img src="${logo}" style="width:16px;height:16px;object-fit:contain;border-radius:2px;vertical-align:middle;margin-right:4px;">` : '';
+    return `
+    <div class="pw-step">
       <div class="pw-step-dot">${card.icon}</div>
       <div class="pw-step-title">${card.name}</div>
       <div class="pw-step-details">
@@ -1471,8 +1473,11 @@ function openPathwayDetail(rewardId, pathwayIdx) {
         ${card.eligibility}<br>
         Campaign: <strong>${card.campaign}</strong>
       </div>
-    </div>
-  `).join('');
+      <button class="pw-card-cta" onclick="showInterstitial('${card.id}',${rewardId},'${pw.bank}')">
+        ${logoImg}Apply for ${card.name} on SingSaver →
+      </button>
+    </div>`;
+  }).join('');
 
   // Build steps HTML
   let stepsHtml = `
@@ -1513,9 +1518,6 @@ function openPathwayDetail(rewardId, pathwayIdx) {
   }
   mathHtml += `<div class="pw-math-total">${pw.type === 'base' ? 'Free gift' : '$' + pw.topUp + ' top-up'} → ${r.img?`<img src="${r.img}" style="width:20px;height:20px;object-fit:contain;vertical-align:middle;">`:r.emoji} ${r.name}</div>`;
 
-  // Primary card for CTA
-  const mainCard = pw.cards[0];
-
   document.getElementById('qv-modal').innerHTML = `
     <button class="modal-close" onclick="closeQV()">&times;</button>
     <div class="pw-detail-view">
@@ -1529,12 +1531,7 @@ function openPathwayDetail(rewardId, pathwayIdx) {
       </div>
       <div class="pw-steps">${stepsHtml}</div>
       <div class="pw-math">${mathHtml}</div>
-      <div class="pw-cta-section">
-        <button class="pw-cta-main" onclick="showInterstitial('${mainCard.id}',${rewardId},'${pw.bank}')">
-          Apply for ${mainCard.name} on SingSaver →
-        </button>
-        <div class="pw-cta-alt">See <a onclick="openQV(${rewardId})">all pathways</a> for this reward</div>
-      </div>
+      <div class="pw-all-pathways">See <a onclick="openQV(${rewardId})">all pathways</a> for this reward</div>
     </div>
   `;
 }
