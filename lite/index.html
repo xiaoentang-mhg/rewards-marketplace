@@ -255,10 +255,6 @@ input, select { font-family: var(--font); }
 .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
 .toolbar select { padding: 8px 28px 8px 12px; border: 1.5px solid var(--g200); border-radius: var(--r-sm); font-size: 13px; background: #fff; appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23737373'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; cursor: pointer; }
 .toolbar select:focus { outline: none; border-color: var(--ss-blue); }
-.view-btns { display: flex; border: 1.5px solid var(--g200); border-radius: var(--r-sm); overflow: hidden; margin-left: auto; }
-.view-btns button { padding: 7px 11px; border: none; background: #fff; font-size: 15px; color: var(--g400); line-height: 1; }
-.view-btns button.active { background: var(--ss-blue-bg); color: var(--ss-blue); }
-.view-btns button:not(:last-child) { border-right: 1px solid var(--g200); }
 .result-count { font-size: 13px; color: var(--g500); }
 
 /* ─── CARD — GRID MODE ─── */
@@ -310,20 +306,6 @@ input, select { font-family: var(--font); }
 
 
 /* ─── CARD — LIST MODE ─── */
-.card-list { grid-template-columns: 1fr !important; }
-.card-list .rcard { display: grid; grid-template-columns: 200px 1fr auto; border-radius: var(--r-md); overflow: hidden; }
-.card-list .rcard .rc-visual { height: 100%; min-height: 140px; border-radius: 0; font-size: 40px; }
-.card-list .rcard .rc-body { display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 16px 20px; }
-.card-list .rcard .rc-info { flex: 1; min-width: 0; }
-.card-list .rcard .rc-name { min-height: auto; -webkit-line-clamp: 2; font-size: 14px; font-weight: 600; }
-.card-list .rcard .rc-value { font-size: 20px; }
-.card-list .rcard .rc-meta { display: flex; align-items: center; gap: 4px 10px; flex-wrap: wrap; margin-top: 6px; }
-.card-list .rcard .rc-pw-more { margin-top: 0; }
-.card-list .rcard .rc-list-right { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 12px; flex-shrink: 0; padding: 16px 20px; border-left: 1px solid var(--g150); }
-.card-list .rcard .rc-cta-btn { padding: 10px 20px; border-radius: var(--r-sm); background: var(--ss-blue); color: #fff; border: none; font-size: 13px; font-weight: 700; white-space: nowrap; }
-.card-list .rcard .rc-cta-btn:hover { background: var(--ss-blue-hover); }
-.card-list .rcard .rc-actions { opacity: 1 !important; position: static !important; }
-.card-list .rcard:hover { box-shadow: var(--sh-md); }
 
 /* ─── EMPTY STATE ─── */
 .empty-state { text-align: center; padding: 64px 24px; }
@@ -457,12 +439,6 @@ input, select { font-family: var(--font); }
   .rcard .rc-value { font-size: 18px; }
   .rcard .rc-name { font-size: 11px; min-height: 28px; }
   .rcard .rc-actions { opacity: 1; }
-
-  /* List view on tablet */
-  .card-list .rcard { grid-template-columns: 160px 1fr auto; }
-  .card-list .rcard .rc-visual { min-height: 120px; }
-  .card-list .rcard .rc-body { padding: 12px 16px; }
-  .card-list .rcard .rc-list-right { padding: 12px 16px; }
 
   /* Toolbar — sticky on mobile */
   .toolbar { padding: 8px 0; gap: 8px; position: sticky; top: 0; z-index: 50; background: var(--g50); }
@@ -652,15 +628,6 @@ input, select { font-family: var(--font); }
   .sec-header h2 { font-size: 15px; }
   .sec-header .sec-link { font-size: 12px; }
 
-  /* List view on mobile = same as grid */
-  /* List view on mobile = horizontal compact row */
-  .card-list .rcard { grid-template-columns: 100px 1fr; grid-template-rows: auto; }
-  .card-list .rcard .rc-visual { min-height: 100px; height: 100%; font-size: 28px; }
-  .card-list .rcard .rc-body { padding: 10px 12px; }
-  .card-list .rcard .rc-list-right { display: none; }
-  .card-list .rcard .rc-name { -webkit-line-clamp: 2; }
-  .card-list .rcard .rc-value { font-size: 16px; }
-
   .compare-bar { flex-wrap: wrap; padding: 10px 12px; gap: 8px; }
   .cb-label { font-size: 12px; }
   .cb-items { order: 3; width: 100%; }
@@ -671,7 +638,6 @@ input, select { font-family: var(--font); }
 
   .toolbar { gap: 6px; }
   .toolbar select { flex: 1; min-width: 0; }
-  .view-btns { display: none; }
   .result-count { font-size: 12px; }
 
   .active-filters { margin-bottom: 8px; }
@@ -832,10 +798,6 @@ function checkPw(){
           <option value="price-asc">Price: Low to High</option>
           <option value="price-desc">Price: High to Low</option>
         </select>
-        <div class="view-btns">
-          <button class="active" onclick="setView('grid',this)" title="Grid view">&#9638;</button>
-          <button onclick="setView('list',this)" title="List view">&#9776;</button>
-        </div>
         <span class="result-count" id="result-count"></span>
       </div>
       <div id="grid-container" class="card-grid"></div>
@@ -916,7 +878,6 @@ const R = [
 
 // ═══ STATE ═══
 let st = {
-  view: 'grid',
   catView: 'grid',
   sort: 'value-desc',
   catSort: 'value-desc',
@@ -1209,38 +1170,9 @@ function shuffled(arr) {
 }
 
 // ═══ CARD RENDERER ═══
-function renderCard(item, mode) {
+function renderCard(item) {
   const bm = st.bookmarks.has(item.id)?'bookmarked':'';
   const cm = st.compare.includes(item.id)?'compared':'';
-  
-  if (mode === 'list') {
-    const popHtmlList = item.popBadge ? `<span class="rc-pop-badge pop-${item.popBadge}" style="font-size:8px;padding:2px 6px;"><svg viewBox="0 0 16 16"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.3L8 12.5 3.1 15l.9-5.3-4-3.9L5.5 5z"/></svg>${item.popLabel}</span>` : '';
-    return `<div class="rcard" onclick="openQV(${item.id})">
-      <div class="rc-visual ${bgCls(item.fulfilment)}">
-        ${popHtmlList}
-        ${item.badge?`<span class="rc-badge ${item.popBadge?'has-pop':''}">${item.badge}</span>`:''}
-        ${rImg(item)}
-      </div>
-      <div class="rc-body">
-        <div class="rc-info">
-          <div class="rc-brand">${item.brand}</div>
-          <div class="rc-name">${item.name}</div>
-          <div class="rc-meta">
-            ${getCardPathwayHtml(item.id)}
-          </div>
-        </div>
-      </div>
-      <div class="rc-list-right">
-        <div class="rc-value">${fmt(item.perceivedValue)}</div>
-        <div class="rc-actions" style="opacity:1;position:static;display:flex;gap:6px;">
-          <button class="rc-act ${bm}" onclick="event.stopPropagation();toggleBM(${item.id})" title="Save">&#9829;</button>
-          <button class="rc-act ${cm}" onclick="event.stopPropagation();toggleCmp(${item.id})" title="Compare">&#43;</button>
-        </div>
-        <button class="rc-cta-btn" onclick="event.stopPropagation();">Get this</button>
-      </div>
-    </div>`;
-  }
-  
   const popHtml = item.popBadge ? `<span class="rc-pop-badge pop-${item.popBadge}"><svg viewBox="0 0 16 16"><path d="M8 0l2.5 5 5.5.8-4 3.9.9 5.3L8 12.5 3.1 15l.9-5.3-4-3.9L5.5 5z"/></svg>${item.popLabel}</span>` : '';
 
   return `<div class="rcard" onclick="openQV(${item.id})">
@@ -1329,8 +1261,8 @@ function renderGrid() {
   const items = sortItems(getFiltered(), document.getElementById('sort-s1').value);
   const paged = items.slice(0, st.page * st.pageSize);
   const container = document.getElementById('grid-container');
-  container.className = st.view === 'list' ? 'card-grid card-list' : 'card-grid';
-  container.innerHTML = paged.map(r => renderCard(r, st.view)).join('');
+  container.className = 'card-grid';
+  container.innerHTML = paged.map(r => renderCard(r)).join('');
   document.getElementById('result-count').textContent = items.length + ' rewards';
   document.getElementById('all-count').textContent = items.length + ' rewards';
   document.getElementById('empty-state').style.display = items.length === 0 ? 'block' : 'none';
@@ -1373,7 +1305,6 @@ function clearPrice() { st.priceMin = 0; st.priceMax = 99999; buildSidebar(); re
 function removeFilter(g, v) { st.filters[g] = st.filters[g].filter(x => x !== v); buildSidebar(); renderGrid(); }
 function clearFilter(g) { st.filters[g] = []; buildSidebar(); renderGrid(); }
 function clearAll() { Object.keys(st.filters).forEach(g => st.filters[g]=[]); st.priceMin=0; st.priceMax=99999; st.search=''; document.getElementById('hero-search').value=''; buildSidebar(); renderGrid(); updateMobileFilterCount(); }
-function setView(v, btn) { st.view = v; document.querySelectorAll('#s1 .view-btns button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderGrid(); }
 function loadMore() { st.page++; renderGrid(); }
 function onHeroSearch() { st.search = document.getElementById('hero-search').value.toLowerCase().trim(); st.page = 1; buildSidebar(); renderGrid(); }
 function clearSearch() { st.search = ''; document.getElementById('hero-search').value = ''; st.page = 1; buildSidebar(); renderGrid(); }
