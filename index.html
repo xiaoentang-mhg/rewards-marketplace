@@ -694,7 +694,8 @@ body.show-annos .anno::before { opacity: 1; }
 .rcard .rc-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--g300); }
 .rcard .rc-effort { font-size: 10px; padding: 2px 8px; border-radius: var(--r-full); font-weight: 600; }
 .rcard .rc-ful-icon { font-size: 10px; margin-left: auto; padding: 2px 7px; border-radius: var(--r-full); background: var(--g100); color: var(--g500); font-weight: 600; }
-.rcard .rc-pw-line { font-size: 11px; color: var(--ss-blue); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.6; }
+.rcard .rc-pw-line { font-size: 11px; color: var(--ss-blue); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.6; display: flex; align-items: center; gap: 4px; }
+.rcard .rc-pw-line img.bank-logo { height: 14px; width: auto; flex-shrink: 0; border-radius: 2px; }
 .rcard .rc-pw-more { display: inline-block; font-size: 10px; color: var(--g500); font-weight: 700; background: var(--g100); padding: 1px 7px; border-radius: var(--r-full); margin-top: 4px; }
 
 /* effort colors */
@@ -1794,6 +1795,16 @@ function getPathways(rewardId) {
   return pathways;
 }
 
+const BANK_LOGOS = {
+  'CIMB': 'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/xsmall_blt9a55b5f8f83f8204_0ab275e0da.webp',
+  'Citibank': 'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/668_Provider_Citibank_Type_Banking_298cb71c9a.svg',
+  'HSBC': 'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/671_Provider_HSBC_Type_Banking_916f3a183a.svg',
+  'DBS/POSB': 'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/667_Provider_DBS_Type_Banking_67143c1f85.svg',
+  'OCBC': 'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/thumbnail_bltdb79bd5fde0d1ca3_9693c3ffea.webp',
+  'Standard Chartered': 'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/677_Provider_Standard_Chartered_Bank_Type_Banking_b6ea243396.svg',
+  'UOB': 'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/679_Provider_UOB_Type_Banking_43203f57e6.svg',
+};
+
 function getCardPathwayHtml(itemId) {
   const pws = getPathways(itemId);
   if (!pws.length) return '';
@@ -1801,7 +1812,9 @@ function getCardPathwayHtml(itemId) {
   const rest = pws.length - show.length;
   let html = show.map(p => {
     const detail = p.type === 'base' ? '(free gift)' : `+$${p.topUp} top-up`;
-    return `<div class="rc-pw-line" title="Via ${p.bank}">💳 via ${p.bank} ${detail}</div>`;
+    const logo = BANK_LOGOS[p.bank];
+    const icon = logo ? `<img class="bank-logo" src="${logo}" alt="${p.bank}">` : '💳';
+    return `<div class="rc-pw-line" title="Via ${p.bank}">${icon} via ${p.bank} ${detail}</div>`;
   }).join('');
   if (rest > 0) {
     html += `<span class="rc-pw-more">+${rest}</span>`;
