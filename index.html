@@ -987,16 +987,6 @@ body.show-annos .anno::before { opacity: 1; }
 .pw-step-title { font-size: 13px; font-weight: 700; color: var(--g800); margin-bottom: 6px; }
 .pw-step-details { font-size: 12px; color: var(--g500); line-height: 1.6; }
 .pw-step-details strong { color: var(--g700); }
-.pw-math {
-  background: var(--ss-blue-bg); border-radius: var(--r-md);
-  padding: 16px; margin-bottom: 20px; text-align: center;
-}
-.pw-math-row { font-size: 14px; color: var(--g700); margin-bottom: 4px; }
-.pw-math-row strong { font-weight: 800; color: var(--ss-blue); }
-.pw-math-total {
-  font-size: 18px; font-weight: 800; color: var(--ss-blue);
-  border-top: 1px solid var(--ss-blue-100); padding-top: 8px; margin-top: 8px;
-}
 .pw-card-cta {
   display: block; width: 100%; padding: 10px; border-radius: var(--r-md);
   background: var(--ss-blue); color: #fff; border: none;
@@ -2220,14 +2210,6 @@ function openPathwayDetail(rewardId, pathwayIdx) {
       </div>
     </div>`;
 
-  // Math section
-  let mathHtml = `<div class="pw-math-row">\uD83C\uDFE6 Bank: <strong>${pw.bank}</strong></div>`;
-  mathHtml += `<div class="pw-math-row">\uD83C\uDF81 Reward: <strong>${r.name}</strong> (${fmt(r.perceivedValue)})</div>`;
-  if (pw.topUp > 0) {
-    mathHtml += `<div class="pw-math-row">\uD83D\uDCB5 Top-up: <strong>$${pw.topUp}</strong></div>`;
-  }
-  mathHtml += `<div class="pw-math-total">${pw.type === 'base' ? 'Free gift' : '$' + pw.topUp + ' top-up'} \u2192 ${r.img?`<img src="${r.img}" style="width:20px;height:20px;object-fit:contain;vertical-align:middle;">`:r.emoji} ${r.name}</div>`;
-
   document.getElementById('qv-modal').innerHTML = `
     <button class="modal-close" onclick="closeQV()">&times;</button>
     <div class="pw-detail-view">
@@ -2240,7 +2222,6 @@ function openPathwayDetail(rewardId, pathwayIdx) {
         </div>
       </div>
       <div class="pw-steps">${stepsHtml}</div>
-      <div class="pw-math">${mathHtml}</div>
       <div class="pw-all-pathways">See <a onclick="openQV(${rewardId})">all pathways</a> for this reward</div>
     </div>
   `;
