@@ -550,6 +550,7 @@ input, select { font-family: var(--font); }
 .pw-step-title { font-size: 13px; font-weight: 700; color: var(--g800); margin-bottom: 6px; }
 .pw-step-details { font-size: 12px; color: var(--g500); line-height: 1.6; }
 .pw-step-details strong { color: var(--g700); }
+.pw-welcome-offer { background: linear-gradient(135deg, #fff7ed, #fef3c7); border: 1px solid #f59e0b; border-radius: 8px; padding: 8px 12px; margin: 8px 0; font-size: 12px; font-weight: 600; color: #92400e; }
 .pw-card-cta {
   display: block; width: 100%; padding: 10px; border-radius: var(--r-md);
   background: var(--ss-blue); color: #fff; border: none;
@@ -857,19 +858,19 @@ const effortOrder = {'Very Low':0,'Low':1,'Medium':2,'Medium-High':3,'High':4,'U
 // ═══ SINGSAVER CREDIT CARDS DATA ═══
 const CARDS = [
   // CIMB (3)
-  {id:'cimb1', name:'CIMB Visa Signature', bank:'CIMB', icon:'💳', minSpend:'$108 in 30 days', eligibility:'New CIMB customer only', selling:'10% cashback on online shopping, groceries & transport', url:'https://www.singsaver.com.sg/credit-card/products/cimb-visa-signature-card', campaign:'2 Jan – 1 Mar 2026'},
+  {id:'cimb1', name:'CIMB Visa Signature', bank:'CIMB', icon:'💳', minSpend:'$108 in 30 days', eligibility:'New CIMB customer only', selling:'10% cashback on online shopping, groceries & transport', url:'https://www.singsaver.com.sg/credit-card/products/cimb-visa-signature-card', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'Up to $188 cashback'},
   {id:'cimb2', name:'CIMB Platinum Mastercard', bank:'CIMB', icon:'💳', minSpend:'$108 in 30 days', eligibility:'New CIMB customer only', selling:'10% cashback on all spend, no min income', url:'https://www.singsaver.com.sg/credit-card/cimb', campaign:'2 Jan – 1 Mar 2026'},
-  {id:'cimb3', name:'CIMB World Mastercard', bank:'CIMB', icon:'💳', minSpend:'$108 in 30 days', eligibility:'New CIMB customer only', selling:'Unlimited 0.2% cashback, premium airport lounge', url:'https://www.singsaver.com.sg/credit-card/products/cimb-world-mastercard', campaign:'2 Jan – 1 Mar 2026'},
+  {id:'cimb3', name:'CIMB World Mastercard', bank:'CIMB', icon:'💳', minSpend:'$108 in 30 days', eligibility:'New CIMB customer only', selling:'Unlimited 0.2% cashback, premium airport lounge', url:'https://www.singsaver.com.sg/credit-card/products/cimb-world-mastercard', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'Up to $188 cashback'},
   // Citibank (6)
   {id:'citi1', name:'Citi PremierMiles Card', bank:'Citibank', icon:'✈️', minSpend:'$500 in 30 days', eligibility:'New Citi cardmember', selling:'1.2 miles per $1 overseas, Changi lounge access', url:'https://www.singsaver.com.sg/credit-card/products/citi-premier-miles-card', campaign:'2 Jan – 1 Mar 2026'},
   {id:'citi2', name:'Citi Cash Back+ Card', bank:'Citibank', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New Citi cardmember', selling:'1.6% unlimited cashback on everything', url:'https://www.singsaver.com.sg/credit-card/products/citi-cash-back-plus-card', campaign:'2 Jan – 1 Mar 2026'},
-  {id:'citi3', name:'Citi Rewards Card', bank:'Citibank', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New Citi cardmember', selling:'10X points on online shopping & dept stores', url:'https://www.singsaver.com.sg/credit-card/products/citi-rewards-card', campaign:'2 Jan – 1 Mar 2026'},
+  {id:'citi3', name:'Citi Rewards Card', bank:'Citibank', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New Citi cardmember', selling:'10X points on online shopping & dept stores', url:'https://www.singsaver.com.sg/credit-card/products/citi-rewards-card', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'40,000 ThankYou Points (~$96)'},
   {id:'citi4', name:'Citi SMRT Card', bank:'Citibank', icon:'🚇', minSpend:'$500 in 30 days', eligibility:'New Citi cardmember', selling:'Auto EZ-Link top-up, 5% cashback on transport', url:'https://www.singsaver.com.sg/credit-card/products/citi-smrt-card', campaign:'2 Jan – 1 Mar 2026'},
   {id:'citi5', name:'Citi M1 Card', bank:'Citibank', icon:'📱', minSpend:'$500 in 30 days', eligibility:'New Citi cardmember', selling:'10% off M1 bill, bonus data, 10X points', url:'https://www.singsaver.com.sg/credit-card/products/citibank-m1-platinum-visa-card', campaign:'2 Jan – 1 Mar 2026'},
   {id:'citi6', name:'Citi Cash Back Card', bank:'Citibank', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New Citi cardmember', selling:'8% cashback on groceries & dining', url:'https://www.singsaver.com.sg/credit-card/products/citi-cash-back-card', campaign:'2 Jan – 1 Mar 2026'},
   // HSBC (4)
-  {id:'hsbc1', name:'HSBC TravelOne Credit Card', bank:'HSBC', icon:'✈️', minSpend:'$500 in 30 days', eligibility:'New HSBC cardmember', selling:'3% overseas cashback, no forex fee, lounge access', url:'https://www.singsaver.com.sg/credit-card/products/hsbc-travelone-credit-card', campaign:'2 Jan – 1 Mar 2026'},
-  {id:'hsbc2', name:'HSBC Revolution Credit Card', bank:'HSBC', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New HSBC cardmember', selling:'4 mpd online, contactless & overseas, no min income', url:'https://www.singsaver.com.sg/credit-card/products/hsbc-revolution-credit-card', campaign:'2 Jan – 1 Mar 2026'},
+  {id:'hsbc1', name:'HSBC TravelOne Credit Card', bank:'HSBC', icon:'✈️', minSpend:'$500 in 30 days', eligibility:'New HSBC cardmember', selling:'3% overseas cashback, no forex fee, lounge access', url:'https://www.singsaver.com.sg/credit-card/products/hsbc-travelone-credit-card', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'36,000 welcome miles'},
+  {id:'hsbc2', name:'HSBC Revolution Credit Card', bank:'HSBC', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New HSBC cardmember', selling:'4 mpd online, contactless & overseas, no min income', url:'https://www.singsaver.com.sg/credit-card/products/hsbc-revolution-credit-card', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'Samsonite luggage (worth $680) or $200 cashback'},
   {id:'hsbc3', name:'HSBC Advance Credit Card', bank:'HSBC', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New HSBC cardmember', selling:'5X rewards on groceries, dining, transport & telco', url:'https://www.singsaver.com.sg/credit-card/products/hsbc-advance-credit-card', campaign:'2 Jan – 1 Mar 2026'},
   {id:'hsbc4', name:'HSBC Live+ Credit Card', bank:'HSBC', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New HSBC cardmember', selling:'8% cashback on entertainment, dining & online shopping', url:'https://www.singsaver.com.sg/credit-card/products/hsbc-live-plus-credit-card', campaign:'2 Jan – 1 Mar 2026'},
   // DBS/POSB (6)
@@ -887,17 +888,17 @@ const CARDS = [
   {id:'ocbc5', name:'OCBC 90°N Mastercard', bank:'OCBC', icon:'✈️', minSpend:'$500 in 30 days', eligibility:'New OCBC cardmember', selling:'2.1 mpd overseas, Mastercard perks & Priority Pass', url:'https://www.singsaver.com.sg/credit-card/products/ocbc-90n-mastercard', campaign:'2 Jan – 1 Mar 2026'},
   // Standard Chartered (2)
   {id:'sc1', name:'SC Simply Cash Card', bank:'Standard Chartered', icon:'💳', minSpend:'$300 in 30 days', eligibility:'New SC cardmember', selling:'1.5% unlimited cashback on all spend', url:'https://www.singsaver.com.sg/credit-card/products/standard-chartered-simply-cash-credit-card', campaign:'2 Jan – 1 Mar 2026'},
-  {id:'sc2', name:'SC Journey Credit Card', bank:'Standard Chartered', icon:'✈️', minSpend:'$300 in 30 days', eligibility:'New SC cardmember', selling:'2.5 mpd overseas, no forex fee', url:'https://www.singsaver.com.sg/credit-card/products/standard-chartered-journey-credit-card', campaign:'2 Jan – 1 Mar 2026'},
+  {id:'sc2', name:'SC Journey Credit Card', bank:'Standard Chartered', icon:'✈️', minSpend:'$300 in 30 days', eligibility:'New SC cardmember', selling:'2.5 mpd overseas, no forex fee', url:'https://www.singsaver.com.sg/credit-card/products/standard-chartered-journey-credit-card', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'Up to 30,000 welcome miles'},
   // UOB (9)
-  {id:'uob1', name:'UOB One Card', bank:'UOB', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'Up to 10% cashback on all spend + 7.8% savings interest', url:'https://www.singsaver.com.sg/credit-card/products/uob-one-card', campaign:'2 Jan – 1 Mar 2026'},
-  {id:'uob2', name:'UOB Absolute Cashback Card', bank:'UOB', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'1.7% unlimited cashback on everything, no cap', url:'https://www.singsaver.com.sg/credit-card/products/uob-absolute-cashback-card', campaign:'2 Jan – 1 Mar 2026'},
-  {id:'uob3', name:'UOB PRVI Miles Visa', bank:'UOB', icon:'✈️', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'3 mpd overseas, 1.4 mpd local, Visa Infinite perks', url:'https://www.singsaver.com.sg/credit-card/products/uob-prvi-miles-visa-card', campaign:'2 Jan – 1 Mar 2026'},
-  {id:'uob4', name:'UOB PRVI Miles World Mastercard', bank:'UOB', icon:'✈️', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'3 mpd overseas, Priority Pass lounge, Mastercard benefits', url:'https://www.singsaver.com.sg/credit-card/products/uob-prvi-miles-world-mastercard', campaign:'2 Jan – 1 Mar 2026'},
-  {id:'uob5', name:'UOB PRVI Miles American Express', bank:'UOB', icon:'✈️', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'3 mpd overseas, 2 mpd local, Amex Offers', url:'https://www.singsaver.com.sg/credit-card/products/uob-prvi-miles-american-express-card', campaign:'2 Jan – 1 Mar 2026'},
-  {id:'uob6', name:'UOB Lady\'s Card', bank:'UOB', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'10X points on bags, shoes, beauty. ZALORA, Sephora perks', url:'https://www.singsaver.com.sg/credit-card/products/uob-ladys-card', campaign:'2 Jan – 1 Mar 2026'},
-  {id:'uob7', name:'UOB EVOL Card', bank:'UOB', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'8% cashback on mobile, online, contactless. No min income', url:'https://www.singsaver.com.sg/credit-card/products/uob-evol-card', campaign:'2 Jan – 1 Mar 2026'},
+  {id:'uob1', name:'UOB One Card', bank:'UOB', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'Up to 10% cashback on all spend + 7.8% savings interest', url:'https://www.singsaver.com.sg/credit-card/products/uob-one-card', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'Stackable with UOB welcome offer'},
+  {id:'uob2', name:'UOB Absolute Cashback Card', bank:'UOB', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'1.7% unlimited cashback on everything, no cap', url:'https://www.singsaver.com.sg/credit-card/products/uob-absolute-cashback-card', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'10% cashback (capped at $250)'},
+  {id:'uob3', name:'UOB PRVI Miles Visa', bank:'UOB', icon:'✈️', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'3 mpd overseas, 1.4 mpd local, Visa Infinite perks', url:'https://www.singsaver.com.sg/credit-card/products/uob-prvi-miles-visa-card', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'Stackable with UOB welcome offer'},
+  {id:'uob4', name:'UOB PRVI Miles World Mastercard', bank:'UOB', icon:'✈️', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'3 mpd overseas, Priority Pass lounge, Mastercard benefits', url:'https://www.singsaver.com.sg/credit-card/products/uob-prvi-miles-world-mastercard', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'Stackable with UOB welcome offer'},
+  {id:'uob5', name:'UOB PRVI Miles American Express', bank:'UOB', icon:'✈️', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'3 mpd overseas, 2 mpd local, Amex Offers', url:'https://www.singsaver.com.sg/credit-card/products/uob-prvi-miles-american-express-card', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'Stackable with UOB welcome offer'},
+  {id:'uob6', name:'UOB Lady\'s Card', bank:'UOB', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'10X points on bags, shoes, beauty. ZALORA, Sephora perks', url:'https://www.singsaver.com.sg/credit-card/products/uob-ladys-card', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'Up to 10 miles per dollar'},
+  {id:'uob7', name:'UOB EVOL Card', bank:'UOB', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'8% cashback on mobile, online, contactless. No min income', url:'https://www.singsaver.com.sg/credit-card/products/uob-evol-card', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'Up to $350 cash credit'},
   {id:'uob8', name:'Singtel-UOB Card', bank:'UOB', icon:'📱', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'Up to 20% off Singtel bill, 5% cashback on groceries', url:'https://www.singsaver.com.sg/credit-card/products/uob-singtel-uob-card', campaign:'2 Jan – 1 Mar 2026'},
-  {id:'uob9', name:'UOB Visa Signature Card', bank:'UOB', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'10X points on dining, travel & online. Premium perks', url:'https://www.singsaver.com.sg/credit-card/products/uob-visa-signature-card', campaign:'2 Jan – 1 Mar 2026'},
+  {id:'uob9', name:'UOB Visa Signature Card', bank:'UOB', icon:'💳', minSpend:'$500 in 30 days', eligibility:'New UOB cardmember', selling:'10X points on dining, travel & online. Premium perks', url:'https://www.singsaver.com.sg/credit-card/products/uob-visa-signature-card', campaign:'2 Jan – 1 Mar 2026', welcomeOffer:'Stackable with UOB welcome offer'},
   // Trust (2)
   {id:'trust1', name:'Trust Cashback Card', bank:'Trust', icon:'💳', minSpend:'$100 in 30 days', eligibility:'New Trust customer', selling:'Up to 15% cashback on selected merchants, no min income', url:'https://www.singsaver.com.sg/credit-card/products/trust-cashback-credit-card', campaign:'2 Jan – 1 Mar 2026'},
   {id:'trust2', name:'Trust Link Card', bank:'Trust', icon:'💳', minSpend:'$100 in 30 days', eligibility:'New Trust customer', selling:'1% cashback + loyalty points at 30+ partner brands', url:'https://www.singsaver.com.sg/credit-card/products/trust-bank-link-credit-card', campaign:'2 Jan – 1 Mar 2026'}
@@ -1110,7 +1111,6 @@ function getCardPathwayHtml(itemId) {
   R.forEach(item => {
     const h = ((item.id * 1597334677) >>> 0) % 100;
     if (h < 12) item.exclusiveBadge = 'SingSaver Exclusive';
-    else if (h < 22) item.exclusiveBadge = 'Bank Exclusive';
     else item.exclusiveBadge = null;
   });
 })();
@@ -1174,7 +1174,7 @@ function initS1() {
 function buildSidebar() {
   const cats = [...new Set(R.map(r=>r.category))].sort();
   const brands = [...new Set(R.map(r=>r.brand).filter(Boolean))].sort();
-  const badges = ['SingSaver Exclusive','Bank Exclusive'];
+  const badges = ['SingSaver Exclusive'];
   // Count per
   const cCount = c => getFiltered(null,'cat').filter(r=>r.category===c).length;
   const bCount = b => getFiltered(null,'brand').filter(r=>r.brand===b).length;
@@ -1429,6 +1429,7 @@ function openPathwayDetail(rewardId, pathwayIdx) {
   let cardsHtml = pw.cards.map(card => {
     const logo = BANK_LOGOS[card.bank];
     const logoImg = logo ? `<img src="${logo}" style="width:16px;height:16px;object-fit:contain;border-radius:2px;vertical-align:middle;margin-right:4px;">` : '';
+    const woHtml = card.welcomeOffer ? `<div class="pw-welcome-offer">🎁 + Bank Welcome Offer: ${card.welcomeOffer}</div>` : '';
     return `
     <div class="pw-step">
       <div class="pw-step-dot">${card.icon}</div>
@@ -1439,6 +1440,7 @@ function openPathwayDetail(rewardId, pathwayIdx) {
         ${card.eligibility}<br>
         Campaign: <strong>${card.campaign}</strong>
       </div>
+      ${woHtml}
       <button class="pw-card-cta" onclick="window.open('${card.url}','_blank')">
         ${logoImg}Apply for ${card.name} on SingSaver →
       </button>
