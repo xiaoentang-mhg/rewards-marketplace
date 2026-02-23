@@ -226,6 +226,7 @@ input, select { font-family: var(--font); }
 .filter-title .ft-clear.visible { display: inline; }
 .filter-opt { display: flex; align-items: center; gap: 8px; padding: 5px 0; cursor: pointer; font-size: 13px; color: var(--g700); transition: color 0.1s; }
 .filter-opt:hover { color: var(--g900); }
+.filter-show-more { display: block; background: none; border: none; color: var(--ss-blue); font-size: 12px; font-weight: 600; cursor: pointer; padding: 6px 0 2px; }
 .filter-opt input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--ss-blue); border-radius: 4px; cursor: pointer; flex-shrink: 0; }
 .filter-opt .fo-count { margin-left: auto; font-size: 11px; color: var(--g400); min-width: 20px; text-align: right; }
 .filter-opt.dimmed { opacity: 0.4; }
@@ -263,8 +264,8 @@ input, select { font-family: var(--font); }
 
 .rcard { background: #fff; border-radius: var(--r-lg); border: 1.5px solid var(--g200); overflow: hidden; cursor: pointer; transition: all 0.2s; position: relative; }
 .rcard:hover { border-color: var(--ss-blue-light); box-shadow: var(--sh-md); transform: translateY(-2px); }
-.rcard .rc-visual { height: 110px; display: flex; align-items: center; justify-content: center; font-size: 44px; position: relative; }
-.rc-visual img { max-height: 70%; max-width: 80%; object-fit: contain; }
+.rcard .rc-visual { height: 130px; display: flex; align-items: flex-end; justify-content: center; font-size: 44px; position: relative; padding: 30px 10px 10px; box-sizing: border-box; }
+.rc-visual img { max-height: 85px; max-width: 80%; object-fit: contain; }
 .modal-emoji img { width: 60px; height: 60px; object-fit: contain; }
 .pw-reward-mini-emoji img { width: 32px; height: 32px; object-fit: contain; }
 .ct-emoji img { width: 32px; height: 32px; object-fit: contain; }
@@ -436,7 +437,8 @@ input, select { font-family: var(--font); }
 
   /* Cards */
   .card-grid { grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 10px; }
-  .rcard .rc-visual { height: 90px; font-size: 36px; }
+  .rcard .rc-visual { height: 110px; font-size: 36px; padding: 26px 8px 8px; }
+  .rc-visual img { max-height: 70px; }
   .rcard .rc-body { padding: 10px 12px 12px; }
   .rcard .rc-value { font-size: 18px; }
   .rcard .rc-name { font-size: 11px; min-height: 28px; }
@@ -570,7 +572,8 @@ input, select { font-family: var(--font); }
   .hero-stat .hs-label { font-size: 10px; }
 
   .card-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .rcard .rc-visual { height: 80px; font-size: 30px; }
+  .rcard .rc-visual { height: 100px; font-size: 30px; padding: 24px 8px 8px; }
+  .rc-visual img { max-height: 60px; }
   .rcard .rc-body { padding: 8px 10px 10px; }
   .rcard .rc-value { font-size: 16px; }
   .rcard .rc-name { font-size: 10px; min-height: 24px; -webkit-line-clamp: 1; }
@@ -804,19 +807,19 @@ function checkPw(){
 <script>
 // ═══ DATA ═══
 const R = [
-  {id:1, name:'Dyson Airstrait Straightener', brand:'Dyson', perceivedValue:799, valueTier:'Premium', category:'Hair Care', subcategory:'Hair Care', fulfilment:'Physical', effort:'Low', intentTags:['hair-care','premium-lifestyle'], badge:'Hot Pick', emoji:'💇', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/medium_Dyson_Airstrait_straightener_775291f93e.webp', stock:50},
-  {id:2, name:'Sony WH-1000XM6 Headphones', brand:'Sony', perceivedValue:649, valueTier:'Premium', category:'Audio', subcategory:'Audio', fulfilment:'Physical', effort:'Low', intentTags:['audiophile','tech-lover'], badge:'Best Seller', emoji:'🎧', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Sony_WH_1000_XM_6_4a4c26efaa.webp', stock:40},
+  {id:1, name:'Dyson Airstrait Straightener', brand:'Dyson', perceivedValue:799, valueTier:'Premium', category:'Hair Care Appliances', subcategory:'Hair Care Appliances', fulfilment:'Physical', effort:'Low', intentTags:['hair-care','premium-lifestyle'], badge:'Hot Pick', emoji:'💇', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/medium_Dyson_Airstrait_straightener_775291f93e.webp', stock:50},
+  {id:2, name:'Sony WH-1000XM6 Headphones', brand:'Sony', perceivedValue:649, valueTier:'Premium', category:'Audio Devices', subcategory:'Audio Devices', fulfilment:'Physical', effort:'Low', intentTags:['audiophile','tech-lover'], badge:'Best Seller', emoji:'🎧', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Sony_WH_1000_XM_6_4a4c26efaa.webp', stock:40},
   {id:3, name:'Apple Watch Ultra 3', brand:'Apple', perceivedValue:1199, valueTier:'Ultra Premium', category:'Wearables', subcategory:'Wearables', fulfilment:'Physical', effort:'Medium', intentTags:['fitness','premium-lifestyle'], badge:'Premium Pick', emoji:'⌚', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Apple_Watch_Ultra_3_0c0c72abff.webp', stock:20},
   {id:4, name:'Apple Watch Series 11 GPS+Cell', brand:'Apple', perceivedValue:739, valueTier:'Premium', category:'Wearables', subcategory:'Wearables', fulfilment:'Physical', effort:'Low', intentTags:['fitness','everyday-tech'], badge:null, emoji:'⌚', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Apple_Watch_Series_11_FINAL_de07fc0a85.webp', stock:35},
   {id:5, name:'Apple Watch Series 11 GPS', brand:'Apple', perceivedValue:599, valueTier:'High', category:'Wearables', subcategory:'Wearables', fulfilment:'Physical', effort:'Low', intentTags:['fitness','everyday-tech'], badge:null, emoji:'⌚', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Apple_Watch_Series_11_FINAL_de07fc0a85.webp', stock:45},
   {id:6, name:'Apple Watch SE 3 GPS', brand:'Apple', perceivedValue:349, valueTier:'Mid', category:'Wearables', subcategory:'Wearables', fulfilment:'Physical', effort:'Very Low', intentTags:['budget-smart','fitness'], badge:'Best Value', emoji:'⌚', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Apple_Watch_SE_3_FINAL_8106bb0db0.webp', stock:60},
   {id:7, name:'Apple Watch SE 3 GPS+Cell', brand:'Apple', perceivedValue:419, valueTier:'Mid', category:'Wearables', subcategory:'Wearables', fulfilment:'Physical', effort:'Very Low', intentTags:['budget-smart','fitness'], badge:null, emoji:'⌚', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Apple_Watch_SE_3_FINAL_8106bb0db0.webp', stock:50},
   {id:8, name:'Nintendo Switch 2', brand:'Nintendo', perceivedValue:719, valueTier:'Premium', category:'Gaming', subcategory:'Gaming', fulfilment:'Physical', effort:'Low', intentTags:['gamer','family-fun'], badge:'Most Wanted', emoji:'🎮', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/large_Nintendo_Switch_2_4040465efe.webp', stock:25},
-  {id:9, name:'Dyson Digital Slim Submarine', brand:'Dyson', perceivedValue:699, valueTier:'Premium', category:'Home Appliances', subcategory:'Home Appliances', fulfilment:'Physical', effort:'Low', intentTags:['home-owner','clean-freak'], badge:null, emoji:'🏠', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Dyson_Digtal_Slim_Submarine_020b473e2b.webp', stock:30},
-  {id:10, name:'Dyson Airwrap', brand:'Dyson', perceivedValue:799, valueTier:'Premium', category:'Hair Care', subcategory:'Hair Care', fulfilment:'Physical', effort:'Low', intentTags:['hair-care','premium-lifestyle'], badge:'Hot Pick', emoji:'💇', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/medium_Dyson_Airwrap_178ba4935a.webp', stock:35},
-  {id:11, name:'Apple AirPods 4', brand:'Apple', perceivedValue:199, valueTier:'Mid', category:'Audio', subcategory:'Audio', fulfilment:'Physical', effort:'Very Low', intentTags:['everyday-tech','audiophile'], badge:'Easy Win', emoji:'🎧', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Apple_Air_Pods_4_11ff87c2b9.webp', stock:80},
+  {id:9, name:'Dyson Digital Slim Submarine', brand:'Dyson', perceivedValue:699, valueTier:'Premium', category:'Vacuum', subcategory:'Vacuum', fulfilment:'Physical', effort:'Low', intentTags:['home-owner','clean-freak'], badge:null, emoji:'🏠', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Dyson_Digtal_Slim_Submarine_020b473e2b.webp', stock:30},
+  {id:10, name:'Dyson Airwrap', brand:'Dyson', perceivedValue:799, valueTier:'Premium', category:'Hair Care Appliances', subcategory:'Hair Care Appliances', fulfilment:'Physical', effort:'Low', intentTags:['hair-care','premium-lifestyle'], badge:'Hot Pick', emoji:'💇', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/medium_Dyson_Airwrap_178ba4935a.webp', stock:35},
+  {id:11, name:'Apple AirPods 4', brand:'Apple', perceivedValue:199, valueTier:'Mid', category:'Audio Devices', subcategory:'Audio Devices', fulfilment:'Physical', effort:'Very Low', intentTags:['everyday-tech','audiophile'], badge:'Easy Win', emoji:'🎧', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Apple_Air_Pods_4_11ff87c2b9.webp', stock:80},
   {id:12, name:'Samsonite Luggage Spinner', brand:'Samsonite', perceivedValue:600, valueTier:'High', category:'Travel Gear', subcategory:'Travel Gear', fulfilment:'Physical', effort:'Low', intentTags:['traveller','premium-lifestyle'], badge:null, emoji:'🧳', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Samsonite_Straren_Spinner_67_24_3c17768656.webp', stock:40},
-  {id:13, name:'Xiaomi Truclean W20 Vacuum', brand:'Xiaomi', perceivedValue:259, valueTier:'Mid', category:'Home Appliances', subcategory:'Home Appliances', fulfilment:'Physical', effort:'Very Low', intentTags:['home-owner','budget-smart'], badge:'Best Value', emoji:'🏠', img:null, stock:55},
+  {id:13, name:'Xiaomi Truclean W20 Vacuum', brand:'Xiaomi', perceivedValue:259, valueTier:'Mid', category:'Vacuum', subcategory:'Vacuum', fulfilment:'Physical', effort:'Very Low', intentTags:['home-owner','budget-smart'], badge:'Best Value', emoji:'🏠', img:null, stock:55},
   {id:14, name:'25,000 HeyMax Miles', brand:'HeyMax', perceivedValue:450, valueTier:'High', category:'Miles & Points', subcategory:'Airline Miles', fulfilment:'Digital', effort:'Very Low', intentTags:['miles-collector','traveller'], badge:'Popular', emoji:'✈️', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Heymax_50214266f2.webp', stock:999},
   {id:15, name:'12,000 HeyMax Miles', brand:'HeyMax', perceivedValue:216, valueTier:'Mid', category:'Miles & Points', subcategory:'Airline Miles', fulfilment:'Digital', effort:'Very Low', intentTags:['miles-collector','budget-smart'], badge:null, emoji:'✈️', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Heymax_50214266f2.webp', stock:999},
   {id:16, name:'55,000 HeyMax Miles', brand:'HeyMax', perceivedValue:990, valueTier:'Ultra Premium', category:'Miles & Points', subcategory:'Airline Miles', fulfilment:'Digital', effort:'Medium', intentTags:['miles-collector','premium-lifestyle'], badge:'Premium Pick', emoji:'✈️', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Heymax_50214266f2.webp', stock:999},
@@ -1151,7 +1154,8 @@ function renderCard(item) {
 
     </div>
     <div class="rc-body">
-      <div class="rc-name">${item.name} <span style="font-size:12px;font-weight:600;color:var(--g400);">(worth ${fmt(item.perceivedValue)})</span></div>
+      <div class="rc-name">${item.name}</div>
+      <div style="font-size:11px;font-weight:600;color:var(--g400);margin-top:2px;">worth ${fmt(item.perceivedValue)}</div>
       <div class="rc-meta">
         ${getCardPathwayHtml(item.id)}
       </div>
@@ -1178,9 +1182,13 @@ function buildSidebar() {
 
   let sb = '';
   sb += `<div class="filter-section"><div class="filter-title">Category <span class="ft-clear ${st.filters.cat.length?'visible':''}" onclick="clearFilter('cat')">Clear</span></div>`;
-  cats.forEach(c => {
-    sb += `<label class="filter-opt"><input type="checkbox" data-group="cat" value="${c}" ${st.filters.cat.includes(c)?'checked':''} onchange="onFilter()"> ${c} <span class="fo-count">${cCount(c)}</span></label>`;
+  cats.forEach((c, i) => {
+    const hidden = i >= 5 ? ' style="display:none" data-cat-extra' : '';
+    sb += `<label class="filter-opt"${hidden}><input type="checkbox" data-group="cat" value="${c}" ${st.filters.cat.includes(c)?'checked':''} onchange="onFilter()"> ${c} <span class="fo-count">${cCount(c)}</span></label>`;
   });
+  if (cats.length > 5) {
+    sb += `<button class="filter-show-more" onclick="this.style.display='none';document.querySelectorAll('[data-cat-extra]').forEach(el=>el.style.display='')">+ ${cats.length - 5} more</button>`;
+  }
   sb += '</div>';
 
   sb += `<div class="filter-section"><div class="filter-title">Brand <span class="ft-clear ${st.filters.brand.length?'visible':''}" onclick="clearFilter('brand')">Clear</span></div><div style="max-height:180px;overflow-y:auto;">`;
