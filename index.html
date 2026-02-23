@@ -2115,18 +2115,13 @@ function openQV(id) {
       ${r.popBadge?`<span class="modal-tag" style="background:${{'most-redeemed':'#DC2626','trending':'#EA580C','popular':'#D97706','staff-pick':'var(--ss-blue)'}[r.popBadge]};color:#fff;">&#9733; ${r.popLabel}</span>`:''}
       ${LTD_DEALS[r.id]?`<span class="modal-tag" style="background:#DC2626;color:#fff;">&#9200; Limited Time \u2014 <span class="cd-time" data-cd="${r.id}">--:--:--</span></span>`:''}
       ${r.badge?`<span class="modal-tag mt-badge">${r.badge}</span>`:''}
-      <span class="modal-tag ${effCls(r.effort)}">${r.effort} effort</span>
-      <span class="modal-tag mt-ful">${r.fulfilment}</span>
       <span class="modal-tag mt-ful">${r.valueTier} tier</span>
     </div>
     <div class="modal-details">
       <div class="md-grid">
         <div class="md-item"><label>Category</label><span>${r.category}</span></div>
-        <div class="md-item"><label>Sub-Category</label><span>${r.subcategory}</span></div>
         <div class="md-item"><label>Brand</label><span>${r.brand||'\u2014'}</span></div>
         <div class="md-item"><label>Value</label><span>${fmt(r.perceivedValue)}</span></div>
-        <div class="md-item"><label>Fulfilment</label><span>${r.fulfilment}</span></div>
-        <div class="md-item"><label>Effort Level</label><span>${r.effort}</span></div>
       </div>
     </div>
     <div class="pathway-section">
