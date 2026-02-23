@@ -274,6 +274,10 @@ input, select { font-family: var(--font); }
 .rcard { background: #fff; border-radius: var(--r-lg); border: 1.5px solid var(--g200); overflow: hidden; cursor: pointer; transition: all 0.2s; position: relative; }
 .rcard:hover { border-color: var(--ss-blue-light); box-shadow: var(--sh-md); transform: translateY(-2px); }
 .rcard .rc-visual { height: 110px; display: flex; align-items: center; justify-content: center; font-size: 44px; position: relative; }
+.rc-visual img { max-height: 70%; max-width: 80%; object-fit: contain; }
+.modal-emoji img { width: 60px; height: 60px; object-fit: contain; }
+.pw-reward-mini-emoji img { width: 32px; height: 32px; object-fit: contain; }
+.ct-emoji img { width: 32px; height: 32px; object-fit: contain; }
 .rcard .rc-visual.cash-bg { background: linear-gradient(135deg, #ECFDF5, #D1FAE5); }
 .rcard .rc-visual.digital-bg { background: linear-gradient(135deg, #EFF6FF, #DBEAFE); }
 .rcard .rc-visual.physical-bg { background: linear-gradient(135deg, #FFF7ED, #FED7AA); }
@@ -875,26 +879,26 @@ input, select { font-family: var(--font); }
 <script>
 // ═══ DATA ═══
 const R = [
-  {id:1, name:'Dyson Airstrait Straightener', brand:'Dyson', perceivedValue:799, valueTier:'Premium', category:'Home & Lifestyle', subcategory:'Hair Care', fulfilment:'Physical', effort:'Low', intentTags:['hair-care','premium-lifestyle'], badge:'Hot Pick', emoji:'💇', stock:50},
-  {id:2, name:'Sony WH-1000XM6 Headphones', brand:'Sony', perceivedValue:649, valueTier:'Premium', category:'Tech & Gadgets', subcategory:'Audio', fulfilment:'Physical', effort:'Low', intentTags:['audiophile','tech-lover'], badge:'Best Seller', emoji:'🎧', stock:40},
-  {id:3, name:'Apple Watch Ultra 3', brand:'Apple', perceivedValue:1199, valueTier:'Ultra Premium', category:'Tech & Gadgets', subcategory:'Wearables', fulfilment:'Physical', effort:'Medium', intentTags:['fitness','premium-lifestyle'], badge:'Premium Pick', emoji:'⌚', stock:20},
-  {id:4, name:'Apple Watch Series 11 GPS+Cell', brand:'Apple', perceivedValue:739, valueTier:'Premium', category:'Tech & Gadgets', subcategory:'Wearables', fulfilment:'Physical', effort:'Low', intentTags:['fitness','everyday-tech'], badge:null, emoji:'⌚', stock:35},
-  {id:5, name:'Apple Watch Series 11 GPS', brand:'Apple', perceivedValue:599, valueTier:'High', category:'Tech & Gadgets', subcategory:'Wearables', fulfilment:'Physical', effort:'Low', intentTags:['fitness','everyday-tech'], badge:null, emoji:'⌚', stock:45},
-  {id:6, name:'Apple Watch SE 3 GPS', brand:'Apple', perceivedValue:349, valueTier:'Mid', category:'Tech & Gadgets', subcategory:'Wearables', fulfilment:'Physical', effort:'Very Low', intentTags:['budget-smart','fitness'], badge:'Best Value', emoji:'⌚', stock:60},
-  {id:7, name:'Apple Watch SE 3 GPS+Cell', brand:'Apple', perceivedValue:419, valueTier:'Mid', category:'Tech & Gadgets', subcategory:'Wearables', fulfilment:'Physical', effort:'Very Low', intentTags:['budget-smart','fitness'], badge:null, emoji:'⌚', stock:50},
-  {id:8, name:'Nintendo Switch 2', brand:'Nintendo', perceivedValue:719, valueTier:'Premium', category:'Tech & Gadgets', subcategory:'Gaming', fulfilment:'Physical', effort:'Low', intentTags:['gamer','family-fun'], badge:'Most Wanted', emoji:'🎮', stock:25},
-  {id:9, name:'Dyson Digital Slim Submarine', brand:'Dyson', perceivedValue:699, valueTier:'Premium', category:'Home & Lifestyle', subcategory:'Home Appliances', fulfilment:'Physical', effort:'Low', intentTags:['home-owner','clean-freak'], badge:null, emoji:'🏠', stock:30},
-  {id:10, name:'Dyson Airwrap', brand:'Dyson', perceivedValue:799, valueTier:'Premium', category:'Home & Lifestyle', subcategory:'Hair Care', fulfilment:'Physical', effort:'Low', intentTags:['hair-care','premium-lifestyle'], badge:'Hot Pick', emoji:'💇', stock:35},
-  {id:11, name:'Apple AirPods 4', brand:'Apple', perceivedValue:199, valueTier:'Mid', category:'Tech & Gadgets', subcategory:'Audio', fulfilment:'Physical', effort:'Very Low', intentTags:['everyday-tech','audiophile'], badge:'Easy Win', emoji:'🎧', stock:80},
-  {id:12, name:'Samsonite Luggage Spinner', brand:'Samsonite', perceivedValue:600, valueTier:'High', category:'Home & Lifestyle', subcategory:'Travel Gear', fulfilment:'Physical', effort:'Low', intentTags:['traveller','premium-lifestyle'], badge:null, emoji:'🧳', stock:40},
-  {id:13, name:'Xiaomi Truclean W20 Vacuum', brand:'Xiaomi', perceivedValue:259, valueTier:'Mid', category:'Home & Lifestyle', subcategory:'Home Appliances', fulfilment:'Physical', effort:'Very Low', intentTags:['home-owner','budget-smart'], badge:'Best Value', emoji:'🏠', stock:55},
-  {id:14, name:'25,000 HeyMax Miles', brand:'HeyMax', perceivedValue:450, valueTier:'High', category:'Miles & Points', subcategory:'Airline Miles', fulfilment:'Digital', effort:'Very Low', intentTags:['miles-collector','traveller'], badge:'Popular', emoji:'✈️', stock:999},
-  {id:15, name:'12,000 HeyMax Miles', brand:'HeyMax', perceivedValue:216, valueTier:'Mid', category:'Miles & Points', subcategory:'Airline Miles', fulfilment:'Digital', effort:'Very Low', intentTags:['miles-collector','budget-smart'], badge:null, emoji:'✈️', stock:999},
-  {id:16, name:'55,000 HeyMax Miles', brand:'HeyMax', perceivedValue:990, valueTier:'Ultra Premium', category:'Miles & Points', subcategory:'Airline Miles', fulfilment:'Digital', effort:'Medium', intentTags:['miles-collector','premium-lifestyle'], badge:'Premium Pick', emoji:'✈️', stock:999},
-  {id:17, name:'PayNow Cash (up to $888)', brand:'PayNow', perceivedValue:888, valueTier:'Premium', category:'Cash Rewards', subcategory:'Cash', fulfilment:'Cash', effort:'Very Low', intentTags:['cashback-lover','practical'], badge:'Most Popular', emoji:'💰', stock:999},
-  {id:18, name:'$175 eCapitaVoucher', brand:'eCapitaVoucher', perceivedValue:175, valueTier:'Low', category:'Vouchers', subcategory:'Shopping', fulfilment:'Digital', effort:'Very Low', intentTags:['shopper','budget-smart'], badge:null, emoji:'🛍️', stock:200},
-  {id:19, name:'$370 Grab Voucher', brand:'Grab', perceivedValue:370, valueTier:'Mid', category:'Vouchers', subcategory:'Ride-Hailing & Delivery', fulfilment:'Digital', effort:'Very Low', intentTags:['everyday-spender','convenience-seeker'], badge:null, emoji:'🚗', stock:150},
-  {id:20, name:'$250 Cash + Xiaomi Luggage', brand:'Xiaomi', perceivedValue:449, valueTier:'High', category:'Home & Lifestyle', subcategory:'Travel Gear', fulfilment:'Physical', effort:'Low', intentTags:['traveller','budget-smart'], badge:'Bundle Deal', emoji:'🧳', stock:40}
+  {id:1, name:'Dyson Airstrait Straightener', brand:'Dyson', perceivedValue:799, valueTier:'Premium', category:'Home & Lifestyle', subcategory:'Hair Care', fulfilment:'Physical', effort:'Low', intentTags:['hair-care','premium-lifestyle'], badge:'Hot Pick', emoji:'💇', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/medium_Dyson_Airstrait_straightener_775291f93e.webp', stock:50},
+  {id:2, name:'Sony WH-1000XM6 Headphones', brand:'Sony', perceivedValue:649, valueTier:'Premium', category:'Tech & Gadgets', subcategory:'Audio', fulfilment:'Physical', effort:'Low', intentTags:['audiophile','tech-lover'], badge:'Best Seller', emoji:'🎧', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Sony_WH_1000_XM_6_4a4c26efaa.webp', stock:40},
+  {id:3, name:'Apple Watch Ultra 3', brand:'Apple', perceivedValue:1199, valueTier:'Ultra Premium', category:'Tech & Gadgets', subcategory:'Wearables', fulfilment:'Physical', effort:'Medium', intentTags:['fitness','premium-lifestyle'], badge:'Premium Pick', emoji:'⌚', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Apple_Watch_Ultra_3_0c0c72abff.webp', stock:20},
+  {id:4, name:'Apple Watch Series 11 GPS+Cell', brand:'Apple', perceivedValue:739, valueTier:'Premium', category:'Tech & Gadgets', subcategory:'Wearables', fulfilment:'Physical', effort:'Low', intentTags:['fitness','everyday-tech'], badge:null, emoji:'⌚', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Apple_Watch_Series_11_FINAL_de07fc0a85.webp', stock:35},
+  {id:5, name:'Apple Watch Series 11 GPS', brand:'Apple', perceivedValue:599, valueTier:'High', category:'Tech & Gadgets', subcategory:'Wearables', fulfilment:'Physical', effort:'Low', intentTags:['fitness','everyday-tech'], badge:null, emoji:'⌚', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Apple_Watch_Series_11_FINAL_de07fc0a85.webp', stock:45},
+  {id:6, name:'Apple Watch SE 3 GPS', brand:'Apple', perceivedValue:349, valueTier:'Mid', category:'Tech & Gadgets', subcategory:'Wearables', fulfilment:'Physical', effort:'Very Low', intentTags:['budget-smart','fitness'], badge:'Best Value', emoji:'⌚', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Apple_Watch_SE_3_FINAL_8106bb0db0.webp', stock:60},
+  {id:7, name:'Apple Watch SE 3 GPS+Cell', brand:'Apple', perceivedValue:419, valueTier:'Mid', category:'Tech & Gadgets', subcategory:'Wearables', fulfilment:'Physical', effort:'Very Low', intentTags:['budget-smart','fitness'], badge:null, emoji:'⌚', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Apple_Watch_SE_3_FINAL_8106bb0db0.webp', stock:50},
+  {id:8, name:'Nintendo Switch 2', brand:'Nintendo', perceivedValue:719, valueTier:'Premium', category:'Tech & Gadgets', subcategory:'Gaming', fulfilment:'Physical', effort:'Low', intentTags:['gamer','family-fun'], badge:'Most Wanted', emoji:'🎮', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/large_Nintendo_Switch_2_4040465efe.webp', stock:25},
+  {id:9, name:'Dyson Digital Slim Submarine', brand:'Dyson', perceivedValue:699, valueTier:'Premium', category:'Home & Lifestyle', subcategory:'Home Appliances', fulfilment:'Physical', effort:'Low', intentTags:['home-owner','clean-freak'], badge:null, emoji:'🏠', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Dyson_Digtal_Slim_Submarine_020b473e2b.webp', stock:30},
+  {id:10, name:'Dyson Airwrap', brand:'Dyson', perceivedValue:799, valueTier:'Premium', category:'Home & Lifestyle', subcategory:'Hair Care', fulfilment:'Physical', effort:'Low', intentTags:['hair-care','premium-lifestyle'], badge:'Hot Pick', emoji:'💇', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/medium_Dyson_Airwrap_178ba4935a.webp', stock:35},
+  {id:11, name:'Apple AirPods 4', brand:'Apple', perceivedValue:199, valueTier:'Mid', category:'Tech & Gadgets', subcategory:'Audio', fulfilment:'Physical', effort:'Very Low', intentTags:['everyday-tech','audiophile'], badge:'Easy Win', emoji:'🎧', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Apple_Air_Pods_4_11ff87c2b9.webp', stock:80},
+  {id:12, name:'Samsonite Luggage Spinner', brand:'Samsonite', perceivedValue:600, valueTier:'High', category:'Home & Lifestyle', subcategory:'Travel Gear', fulfilment:'Physical', effort:'Low', intentTags:['traveller','premium-lifestyle'], badge:null, emoji:'🧳', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Samsonite_Straren_Spinner_67_24_3c17768656.webp', stock:40},
+  {id:13, name:'Xiaomi Truclean W20 Vacuum', brand:'Xiaomi', perceivedValue:259, valueTier:'Mid', category:'Home & Lifestyle', subcategory:'Home Appliances', fulfilment:'Physical', effort:'Very Low', intentTags:['home-owner','budget-smart'], badge:'Best Value', emoji:'🏠', img:null, stock:55},
+  {id:14, name:'25,000 HeyMax Miles', brand:'HeyMax', perceivedValue:450, valueTier:'High', category:'Miles & Points', subcategory:'Airline Miles', fulfilment:'Digital', effort:'Very Low', intentTags:['miles-collector','traveller'], badge:'Popular', emoji:'✈️', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Heymax_50214266f2.webp', stock:999},
+  {id:15, name:'12,000 HeyMax Miles', brand:'HeyMax', perceivedValue:216, valueTier:'Mid', category:'Miles & Points', subcategory:'Airline Miles', fulfilment:'Digital', effort:'Very Low', intentTags:['miles-collector','budget-smart'], badge:null, emoji:'✈️', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Heymax_50214266f2.webp', stock:999},
+  {id:16, name:'55,000 HeyMax Miles', brand:'HeyMax', perceivedValue:990, valueTier:'Ultra Premium', category:'Miles & Points', subcategory:'Airline Miles', fulfilment:'Digital', effort:'Medium', intentTags:['miles-collector','premium-lifestyle'], badge:'Premium Pick', emoji:'✈️', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Heymax_50214266f2.webp', stock:999},
+  {id:17, name:'PayNow Cash (up to $888)', brand:'PayNow', perceivedValue:888, valueTier:'Premium', category:'Cash Rewards', subcategory:'Cash', fulfilment:'Cash', effort:'Very Low', intentTags:['cashback-lover','practical'], badge:'Most Popular', emoji:'💰', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_bltdb157d9e2a0237f3_desktop_3e439d3bb3.webp', stock:999},
+  {id:18, name:'$175 eCapitaVoucher', brand:'eCapitaVoucher', perceivedValue:175, valueTier:'Low', category:'Vouchers', subcategory:'Shopping', fulfilment:'Digital', effort:'Very Low', intentTags:['shopper','budget-smart'], badge:null, emoji:'🛍️', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_e_Capita_Voucher_2025_de37086e01.webp', stock:200},
+  {id:19, name:'$370 Grab Voucher', brand:'Grab', perceivedValue:370, valueTier:'Mid', category:'Vouchers', subcategory:'Ride-Hailing & Delivery', fulfilment:'Digital', effort:'Very Low', intentTags:['everyday-spender','convenience-seeker'], badge:null, emoji:'🚗', img:'https://mhgprod.blob.core.windows.net/singsaver/strapi-uploads/small_Grab_Logo_360p_967a616d5d.webp', stock:150},
+  {id:20, name:'$250 Cash + Xiaomi Luggage', brand:'Xiaomi', perceivedValue:449, valueTier:'High', category:'Home & Lifestyle', subcategory:'Travel Gear', fulfilment:'Physical', effort:'Low', intentTags:['traveller','budget-smart'], badge:'Bundle Deal', emoji:'🧳', img:null, stock:40}
 ];
 
 
@@ -917,6 +921,7 @@ let st = {
 };
 
 // ═══ HELPERS ═══
+const rImg = (item, size) => item.img ? `<img src="${item.img}" alt="${item.name}" onerror="this.outerHTML='<span style=\\'font-size:${size||44}px\\'>${item.emoji}</span>'">`  : `<span style="font-size:${size||44}px">${item.emoji}</span>`;
 const fmt = v => '$' + Math.round(v).toLocaleString();
 const effCls = e => ({'Very Low':'eff-vl','Low':'eff-l','Medium':'eff-m','Medium-High':'eff-mh','High':'eff-h'})[e]||'eff-m';
 const bgCls = f => f==='Cash'?'cash-bg':f==='Digital'?'digital-bg':'physical-bg';
@@ -1200,7 +1205,7 @@ function renderCard(item, mode) {
       <div class="rc-visual ${bgCls(item.fulfilment)}">
         ${popHtmlList}
         ${item.badge?`<span class="rc-badge ${item.popBadge?'has-pop':''}">${item.badge}</span>`:''}
-        <span>${item.emoji}</span>
+        ${rImg(item)}
       </div>
       <div class="rc-body">
         <div class="rc-info">
@@ -1230,8 +1235,8 @@ function renderCard(item, mode) {
         <button class="rc-act ${bm}" onclick="event.stopPropagation();toggleBM(${item.id})" title="Save">&#9829;</button>
         <button class="rc-act ${cm}" onclick="event.stopPropagation();toggleCmp(${item.id})" title="Compare">&#43;</button>
       </div>
-      <span>${item.emoji}</span>
-      
+      ${rImg(item)}
+
     </div>
     <div class="rc-body">
       <div class="rc-name">${item.name}</div>
@@ -1388,7 +1393,7 @@ function updateCmpBar() {
     bar.classList.add('show');
     document.getElementById('cmp-items').innerHTML = st.compare.map(id => {
       const r = R.find(i=>i.id===id);
-      return `<div class="cb-item">${r.emoji} ${r.name.slice(0,20)}${r.name.length>20?'...':''} <span class="cbi-x" onclick="toggleCmp(${id})">&times;</span></div>`;
+      return `<div class="cb-item">${r.img?`<img src="${r.img}" style="width:20px;height:20px;object-fit:contain;vertical-align:middle;">`:r.emoji} ${r.name.slice(0,20)}${r.name.length>20?'...':''} <span class="cbi-x" onclick="toggleCmp(${id})">&times;</span></div>`;
     }).join('');
   } else {
     bar.classList.remove('show');
@@ -1402,7 +1407,7 @@ function openCmp() {
   const bestEffort = Math.min(...items.map(i=>effortOrder[i.effort]||5));
   
   let html = `<button class="modal-close" onclick="closeCmp()">&times;</button><h2>Compare Rewards</h2><table class="ctable">`;
-  html += '<tr><th></th>' + items.map(i=>`<th><div class="ct-emoji">${i.emoji}</div><div class="ct-value">${fmt(i.perceivedValue)}</div><div class="ct-name">${i.name}</div></th>`).join('') + '</tr>';
+  html += '<tr><th></th>' + items.map(i=>`<th><div class="ct-emoji">${i.img?`<img src="${i.img}" onerror="this.outerHTML='${i.emoji}'">`:i.emoji}</div><div class="ct-value">${fmt(i.perceivedValue)}</div><div class="ct-name">${i.name}</div></th>`).join('') + '</tr>';
   
   const rows = [
     ['Category', i=>i.category],
@@ -1436,7 +1441,7 @@ function openQV(id) {
   document.getElementById('qv-modal').innerHTML = `
     <button class="modal-close" onclick="closeQV()">&times;</button>
     <div class="modal-hero">
-      <div class="modal-emoji ${bgCls(r.fulfilment)}">${r.emoji}</div>
+      <div class="modal-emoji ${bgCls(r.fulfilment)}">${rImg(r, 40)}</div>
       <div class="modal-info">
         <h2>${r.brand || r.category}</h2>
         <div class="mi-value">${fmt(r.perceivedValue)}</div>
@@ -1557,7 +1562,7 @@ function openPathwayDetail(rewardId, pathwayIdx) {
   if (pw.topUp > 0) {
     mathHtml += `<div class="pw-math-row">💵 Top-up: <strong>$${pw.topUp}</strong></div>`;
   }
-  mathHtml += `<div class="pw-math-total">${pw.type === 'base' ? 'Free gift' : '$' + pw.topUp + ' top-up'} → ${r.emoji} ${r.name}</div>`;
+  mathHtml += `<div class="pw-math-total">${pw.type === 'base' ? 'Free gift' : '$' + pw.topUp + ' top-up'} → ${r.img?`<img src="${r.img}" style="width:20px;height:20px;object-fit:contain;vertical-align:middle;">`:r.emoji} ${r.name}</div>`;
 
   // Primary card for CTA
   const mainCard = pw.cards[0];
@@ -1567,7 +1572,7 @@ function openPathwayDetail(rewardId, pathwayIdx) {
     <div class="pw-detail-view">
       <button class="pw-back" onclick="openQV(${rewardId})">← Back to pathways</button>
       <div class="pw-reward-mini">
-        <div class="pw-reward-mini-emoji">${r.emoji}</div>
+        <div class="pw-reward-mini-emoji">${rImg(r, 28)}</div>
         <div class="pw-reward-mini-info">
           <div class="pw-reward-mini-name">Your path to: ${r.name}</div>
           <div class="pw-reward-mini-value">${fmt(r.perceivedValue)} ${pw.topUp > 0 ? `<span style="font-size:12px;color:var(--orange);">+ $${pw.topUp} top-up</span>` : '<span style="font-size:12px;color:var(--green);">Free gift</span>'}</div>
@@ -1604,7 +1609,7 @@ function showInterstitial(cardId, rewardId, bankName) {
       <li>Min. spend: <strong>${card.minSpend}</strong></li>
       <li>Eligibility: ${card.eligibility}</li>
       <li>Campaign ends: <strong>${card.campaign.split('–').pop().trim()}</strong></li>
-      <li>Your reward: <strong>${r.emoji} ${r.name}</strong>${isUpgrade ? ` (+$${upgradeMatch.topUp} top-up)` : ' (free gift)'}</li>
+      <li>Your reward: <strong>${r.img?`<img src="${r.img}" style="width:20px;height:20px;object-fit:contain;vertical-align:middle;">`:r.emoji} ${r.name}</strong>${isUpgrade ? ` (+$${upgradeMatch.topUp} top-up)` : ' (free gift)'}</li>
     </ul>
     <button class="interstitial-cta" onclick="window.open('${card.url}','_blank');closeInterstitial();">Continue to SingSaver →</button>
     <button class="interstitial-back" onclick="closeInterstitial()">Go Back</button>
