@@ -1862,8 +1862,7 @@ function renderCard(item) {
       ${cdHtml}
     </div>
     <div class="rc-body">
-      <div class="rc-value">${fmt(item.perceivedValue)}</div>
-      <div class="rc-name">${item.name}</div>
+      <div class="rc-name">${item.name} <span style="font-size:12px;font-weight:600;color:var(--g400);">(worth ${fmt(item.perceivedValue)})</span></div>
       <div class="rc-meta">
         ${getCardPathwayHtml(item.id)}
       </div>
@@ -1920,32 +1919,16 @@ function initS1() {
 function buildSidebar() {
   const cats = [...new Set(R.map(r=>r.category))].sort();
   const brands = [...new Set(R.map(r=>r.brand).filter(Boolean))].sort();
-  const fuls = [...new Set(R.map(r=>r.fulfilment))].sort();
-  const efforts = ['Very Low','Low','Medium','Medium-High','High'].filter(e => R.some(r=>r.effort===e));
   const badges = ['SingSaver Exclusive','Bank Exclusive'];
   // Count per
   const cCount = c => getFiltered(null,'cat').filter(r=>r.category===c).length;
   const bCount = b => getFiltered(null,'brand').filter(r=>r.brand===b).length;
-  const fCount = f => getFiltered(null,'ful').filter(r=>r.fulfilment===f).length;
-  const eCount = e => getFiltered(null,'effort').filter(r=>r.effort===e).length;
   const badgeCount = b => getFiltered(null,'badge').filter(r=>r.exclusiveBadge===b).length;
 
   let sb = '';
   sb += `<div class="filter-section"><div class="filter-title">Category <span class="ft-clear ${st.filters.cat.length?'visible':''}" onclick="clearFilter('cat')">Clear</span></div>`;
   cats.forEach(c => {
     sb += `<label class="filter-opt"><input type="checkbox" data-group="cat" value="${c}" ${st.filters.cat.includes(c)?'checked':''} onchange="onFilter()"> ${c} <span class="fo-count">${cCount(c)}</span></label>`;
-  });
-  sb += '</div>';
-
-  sb += `<div class="filter-section"><div class="filter-title">Fulfilment <span class="ft-clear ${st.filters.ful.length?'visible':''}" onclick="clearFilter('ful')">Clear</span></div>`;
-  fuls.forEach(f => {
-    sb += `<label class="filter-opt"><input type="checkbox" data-group="ful" value="${f}" ${st.filters.ful.includes(f)?'checked':''} onchange="onFilter()"> ${f} <span class="fo-count">${fCount(f)}</span></label>`;
-  });
-  sb += '</div>';
-
-  sb += `<div class="filter-section"><div class="filter-title">Effort Level <span class="ft-clear ${st.filters.effort.length?'visible':''}" onclick="clearFilter('effort')">Clear</span></div>`;
-  efforts.forEach(e => {
-    sb += `<label class="filter-opt"><input type="checkbox" data-group="effort" value="${e}" ${st.filters.effort.includes(e)?'checked':''} onchange="onFilter()"> ${e} <span class="fo-count">${eCount(e)}</span></label>`;
   });
   sb += '</div>';
 
