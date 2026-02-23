@@ -892,14 +892,17 @@ body.show-annos .anno::before { opacity: 1; }
   /* Modals */
   .modal-overlay { padding: 0; align-items: flex-end; }
   .modal { border-radius: 20px 20px 0 0; max-width: 100%; max-height: 92vh; overflow-y: auto; }
-  .modal-hero { padding: 24px 20px 16px; gap: 14px; flex-direction: column; align-items: center; text-align: center; }
-  .modal-emoji { width: 64px; height: 64px; font-size: 32px; }
-  .modal-info .mi-value { font-size: 28px; }
-  .modal-info .mi-name { font-size: 14px; }
-  .modal-tags { padding: 0 20px 16px; justify-content: center; }
-  .modal-details { padding: 0 20px 20px; }
-  .md-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .md-item { padding: 10px; }
+  .modal-hero { padding: 16px 20px 10px; gap: 12px; flex-direction: row; align-items: center; text-align: left; }
+  .modal-emoji { width: 52px; height: 52px; font-size: 28px; }
+  .modal-info h2 { font-size: 12px; }
+  .modal-info .mi-value { font-size: 24px; }
+  .modal-info .mi-name { font-size: 13px; }
+  .modal-tags { padding: 0 20px 10px; }
+  .modal-details { padding: 0 20px 12px; }
+  .md-grid { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+  .md-item { padding: 8px 10px; }
+  .md-item label { font-size: 9px; margin-bottom: 2px; }
+  .md-item span { font-size: 13px; }
   .modal-how { padding: 0 20px 20px; }
   .how-steps { flex-direction: column; gap: 8px; }
   .modal-footer { padding: 16px 20px; }
@@ -1032,8 +1035,7 @@ body.show-annos .anno::before { opacity: 1; }
   .cb-items { order: 3; width: 100%; }
   .compare-btn { flex: 1; padding: 10px; font-size: 13px; }
 
-  .modal-info .mi-value { font-size: 24px; }
-  .md-grid { grid-template-columns: 1fr; }
+  .md-grid { grid-template-columns: 1fr 1fr 1fr; }
 
   .toolbar { gap: 6px; }
   .toolbar select { flex: 1; min-width: 0; }
