@@ -166,7 +166,7 @@ input, select { font-family: var(--font); }
 .pd-menu-item {
   display: flex; align-items: center; gap: 10px; padding: 10px 20px;
   font-size: 13px; color: var(--g700); cursor: pointer; transition: background 0.1s;
-  text-decoration: none; border: none; background: none; width: 100;
+  text-decoration: none; border: none; background: none; width: 100%;
 }
 .pd-menu-item:hover { background: var(--g50); }
 .pd-menu-item svg { color: var(--g400); flex-shrink: 0; }
@@ -188,6 +188,7 @@ input, select { font-family: var(--font); }
 .hb-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
 .hb-saved { display: flex; align-items: center; gap: 4px; padding: 8px 14px; border-radius: var(--r-full); border: 1.5px solid var(--g200); font-size: 13px; font-weight: 600; color: var(--g600); background: #fff; }
 .hb-saved:hover { border-color: var(--ss-blue); color: var(--ss-blue); }
+.hb-saved.active { background: var(--ss-blue); color: #fff; border-color: var(--ss-blue); }
 
 /* ─── HERO ─── */
 .hero { background: linear-gradient(135deg, var(--ss-blue) 0%, var(--ss-blue-hover) 40%, var(--harbour-blue) 100%); color: #fff; padding: 40px 24px 32px; position: relative; overflow: hidden; }
@@ -650,7 +651,7 @@ function checkPw(){
       <a href="#">Investments</a>
     </div>
     <div class="hb-right">
-      <button class="hb-saved" id="saved-count-btn">&#9829; Saved <span id="saved-count">0</span></button>
+      <button class="hb-saved" id="saved-count-btn" onclick="showSaved()">&#9829; Saved <span id="saved-count">0</span></button>
       <div class="hb-profile" id="hb-profile">
         <button class="hb-avatar" onclick="toggleProfileDropdown()" title="My Account">JT</button>
         <span class="hb-streak-dot" id="streak-dot">&#128293;</span>
@@ -836,6 +837,7 @@ let st = {
   search: '',
   compare: [],
   bookmarks: new Set(),
+  showSavedOnly: false,
   pageSize: 24,
   page: 1,
   s2Cat: null,
@@ -1149,6 +1151,7 @@ function renderCard(item) {
 
     </div>
     <div class="rc-body">
+      <div class="rc-value">${fmt(item.perceivedValue)}</div>
       <div class="rc-name">${item.name}</div>
       <div class="rc-meta">
         ${getCardPathwayHtml(item.id)}
@@ -1168,10 +1171,14 @@ function initS1() {
 function buildSidebar() {
   const cats = [...new Set(R.map(r=>r.category))].sort();
   const brands = [...new Set(R.map(r=>r.brand).filter(Boolean))].sort();
+  const fuls = [...new Set(R.map(r=>r.fulfilment))].sort();
+  const efforts = ['Very Low','Low','Medium','Medium-High','High'].filter(e => R.some(r=>r.effort===e));
   const badges = ['SingSaver Exclusive','Bank Exclusive'];
   // Count per
   const cCount = c => getFiltered(null,'cat').filter(r=>r.category===c).length;
   const bCount = b => getFiltered(null,'brand').filter(r=>r.brand===b).length;
+  const fCount = f => getFiltered(null,'ful').filter(r=>r.fulfilment===f).length;
+  const eCount = e => getFiltered(null,'effort').filter(r=>r.effort===e).length;
   const badgeCount = b => getFiltered(null,'badge').filter(r=>r.exclusiveBadge===b).length;
 
   let sb = '';
@@ -1181,13 +1188,25 @@ function buildSidebar() {
   });
   sb += '</div>';
 
+  sb += `<div class="filter-section"><div class="filter-title">Fulfilment <span class="ft-clear ${st.filters.ful.length?'visible':''}" onclick="clearFilter('ful')">Clear</span></div>`;
+  fuls.forEach(f => {
+    sb += `<label class="filter-opt"><input type="checkbox" data-group="ful" value="${f}" ${st.filters.ful.includes(f)?'checked':''} onchange="onFilter()"> ${f} <span class="fo-count">${fCount(f)}</span></label>`;
+  });
+  sb += '</div>';
+
+  sb += `<div class="filter-section"><div class="filter-title">Effort Level <span class="ft-clear ${st.filters.effort.length?'visible':''}" onclick="clearFilter('effort')">Clear</span></div>`;
+  efforts.forEach(e => {
+    sb += `<label class="filter-opt"><input type="checkbox" data-group="effort" value="${e}" ${st.filters.effort.includes(e)?'checked':''} onchange="onFilter()"> ${e} <span class="fo-count">${eCount(e)}</span></label>`;
+  });
+  sb += '</div>';
+
   sb += `<div class="filter-section"><div class="filter-title">Brand <span class="ft-clear ${st.filters.brand.length?'visible':''}" onclick="clearFilter('brand')">Clear</span></div><div style="max-height:180px;overflow-y:auto;">`;
   brands.slice(0,25).forEach(b => {
     sb += `<label class="filter-opt"><input type="checkbox" data-group="brand" value="${b}" ${st.filters.brand.includes(b)?'checked':''} onchange="onFilter()"> ${b} <span class="fo-count">${bCount(b)}</span></label>`;
   });
   sb += '</div></div>';
 
-  sb += `<div class="filter-section"><div class="filter-title">Credit Range <span class="ft-clear ${st.priceMin>0||st.priceMax<99999?'visible':''}" onclick="clearPrice()">Clear</span></div>
+  sb += `<div class="filter-section"><div class="filter-title">Reward Value <span class="ft-clear ${st.priceMin>0||st.priceMax<99999?'visible':''}" onclick="clearPrice()">Clear</span></div>
     <div class="price-slider"><div class="price-inputs">
       <input type="number" id="pmin" placeholder="Min" value="${st.priceMin||''}" min="0">
       <span>—</span>
@@ -1208,6 +1227,7 @@ function buildSidebar() {
 
 function getFiltered(exclude, group) {
   return R.filter(r => {
+    if (st.showSavedOnly && !st.bookmarks.has(r.id)) return false;
     if (group !== 'cat' && st.filters.cat.length && !st.filters.cat.includes(r.category)) return false;
     if (r.perceivedValue < st.priceMin || r.perceivedValue > st.priceMax) return false;
     if (group !== 'ful' && st.filters.ful.length && !st.filters.ful.includes(r.fulfilment)) return false;
@@ -1272,6 +1292,11 @@ function onHeroSearch() { st.search = document.getElementById('hero-search').val
 function clearSearch() { st.search = ''; document.getElementById('hero-search').value = ''; st.page = 1; buildSidebar(); renderGrid(); }
 
 // ═══ BOOKMARK & COMPARE ═══
+function showSaved() {
+  st.showSavedOnly = !st.showSavedOnly;
+  document.getElementById('saved-count-btn').classList.toggle('active', st.showSavedOnly);
+  st.page = 1; renderGrid();
+}
 function toggleBM(id) {
   if (st.bookmarks.has(id)) st.bookmarks.delete(id); else st.bookmarks.add(id);
   document.getElementById('saved-count').textContent = st.bookmarks.size;
