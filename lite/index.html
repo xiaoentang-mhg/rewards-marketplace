@@ -699,6 +699,33 @@ input, select { font-family: var(--font); }
 </head>
 <body>
 
+<!-- ═══ PASSWORD GATE ═══ -->
+<div id="pw-gate" style="position:fixed;inset:0;z-index:99999;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Albert Sans',sans-serif;">
+  <div style="text-align:center;max-width:340px;padding:24px;">
+    <div style="font-size:40px;margin-bottom:16px;">🔒</div>
+    <h2 style="font-size:20px;font-weight:800;color:#171717;margin-bottom:4px;">SingSaver Rewards Marketplace</h2>
+    <p style="font-size:13px;color:#737373;margin-bottom:20px;">Internal preview — enter password to continue</p>
+    <input id="pw-input" type="password" placeholder="Password" style="width:100%;padding:12px 16px;border:1.5px solid #E5E5E5;border-radius:10px;font-size:15px;font-family:inherit;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='#04709B'" onblur="this.style.borderColor='#E5E5E5'">
+    <div id="pw-error" style="color:#DC2626;font-size:12px;margin-top:8px;display:none;">Incorrect password</div>
+    <button onclick="checkPw()" style="width:100%;margin-top:12px;padding:12px;border:none;border-radius:10px;background:#04709B;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Enter</button>
+  </div>
+</div>
+<script>
+(function(){
+  if(sessionStorage.getItem('ss-rw-auth')==='1'){document.getElementById('pw-gate').style.display='none';}
+  document.getElementById('pw-input').addEventListener('keydown',function(e){if(e.key==='Enter')checkPw();});
+})();
+function checkPw(){
+  if(document.getElementById('pw-input').value==='rewards2026'){
+    sessionStorage.setItem('ss-rw-auth','1');
+    document.getElementById('pw-gate').style.display='none';
+  } else {
+    document.getElementById('pw-error').style.display='block';
+    document.getElementById('pw-input').style.borderColor='#DC2626';
+  }
+}
+</script>
+
 <!-- ═══════════════════════════════════════════
      REWARDS CATALOGUE LANDING
      ═══════════════════════════════════════════ -->
