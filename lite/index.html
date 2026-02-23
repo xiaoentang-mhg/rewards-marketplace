@@ -315,9 +315,10 @@ input, select { font-family: var(--font); }
 .card-list .rcard .rc-visual { height: 100%; min-height: 140px; border-radius: 0; font-size: 40px; }
 .card-list .rcard .rc-body { display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 16px 20px; }
 .card-list .rcard .rc-info { flex: 1; min-width: 0; }
-.card-list .rcard .rc-name { min-height: auto; -webkit-line-clamp: 2; font-size: 13px; }
+.card-list .rcard .rc-name { min-height: auto; -webkit-line-clamp: 2; font-size: 14px; font-weight: 600; }
 .card-list .rcard .rc-value { font-size: 20px; }
-.card-list .rcard .rc-meta { margin-top: 6px; }
+.card-list .rcard .rc-meta { display: flex; align-items: center; gap: 4px 10px; flex-wrap: wrap; margin-top: 6px; }
+.card-list .rcard .rc-pw-more { margin-top: 0; }
 .card-list .rcard .rc-list-right { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 12px; flex-shrink: 0; padding: 16px 20px; border-left: 1px solid var(--g150); }
 .card-list .rcard .rc-cta-btn { padding: 10px 20px; border-radius: var(--r-sm); background: var(--ss-blue); color: #fff; border: none; font-size: 13px; font-weight: 700; white-space: nowrap; }
 .card-list .rcard .rc-cta-btn:hover { background: var(--ss-blue-hover); }
@@ -1222,13 +1223,15 @@ function renderCard(item, mode) {
       </div>
       <div class="rc-body">
         <div class="rc-info">
-          <div class="rc-name" style="-webkit-line-clamp:2;font-size:14px;font-weight:600;">${item.name}</div>
-          <div class="rc-meta" style="margin-top:6px;">
+          <div class="rc-brand">${item.brand}</div>
+          <div class="rc-name">${item.name}</div>
+          <div class="rc-meta">
             ${getCardPathwayHtml(item.id)}
           </div>
         </div>
       </div>
       <div class="rc-list-right">
+        <div class="rc-value">${fmt(item.perceivedValue)}</div>
         <div class="rc-actions" style="opacity:1;position:static;display:flex;gap:6px;">
           <button class="rc-act ${bm}" onclick="event.stopPropagation();toggleBM(${item.id})" title="Save">&#9829;</button>
           <button class="rc-act ${cm}" onclick="event.stopPropagation();toggleCmp(${item.id})" title="Compare">&#43;</button>
